@@ -1,5 +1,8 @@
 class exampleApi extends Api {
-	constructor(apiInterface = new AjaxCall(), url = "http://localhost:8000/") {
+	constructor(
+		apiInterface = new AjaxCall(),
+		url = "http://localhost:8000/players"
+	) {
 		super(apiInterface, url)
 	}
 

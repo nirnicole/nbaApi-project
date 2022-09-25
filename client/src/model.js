@@ -14,7 +14,7 @@ const rupgModel = function () {
 
 		return await Promise.all([examplePromise]).then(function (results) {
 			return {
-				example: exampleInstance.processData(results[0]),
+				example: results[0],
 			}
 		})
 	}
