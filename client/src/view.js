@@ -10,13 +10,13 @@ const rupgRender = function () {
 	//template method
 	const renderPage = function (res) {
 		console.log(res)
-		renderComponent("#example-template", ".resluts", res.example)
+		renderComponent("#example-template", "#results", res.example)
 	}
 
 	const renderComponent = function (hbTemplate, elementToRender, data) {
 		const source = $(hbTemplate).html()
 		const template = Handlebars.compile(source)
-		let newHTML = template(data)
+		let newHTML = template({ playersData: data })
 		$(elementToRender).empty()
 		$(elementToRender).append(newHTML)
 	}

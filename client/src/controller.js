@@ -30,5 +30,10 @@ const generateData = function (attempts = 0) {
 
 $("#submit").on("click", function () {
 	console.log("working")
-	generateData()
+	year = $("#year").val()
+	team = $("#team").val()
+	if (year != "" && team != "") {
+		model.init_data(year, team)
+		generateData(year, team)
+	} else console.warn("no input")
 })

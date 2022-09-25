@@ -27,19 +27,20 @@
 		/> -->
 
 		<script id="example-template" type="text/x-handlebars-template">
-			<h2>NBA data:</h2>
-			"{{this.data}}"
+			<h1>NBA data:</h1>
+			{{#each playersData}}
+				<li>{{this.fname}} {{this.lname}}</li>
+			{{/each}}
 			<br />
-			-example
 		</script>
 	</head>
 	<body>
 		<div class="footer">
-			<input type="text" placeholder="team" />
-			<input type="text" placeholder="year" />
+			<input id="year" type="text" placeholder="year" />
+			<input id="team" type="text" placeholder="team" />
 			<button id="submit">Get Team</button>
 		</div>
-		<div class="resluts"></div>
+		<div id="results">hi</div>
 
 		<script src="./src/Apis/ajaxCall.js"></script>
 		<script src="./src/Apis/api.js"></script>

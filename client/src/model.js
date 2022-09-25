@@ -9,6 +9,10 @@
 const rupgModel = function () {
 	let exampleInstance = new exampleApi()
 
+	function init_data(year, team) {
+		exampleInstance = new exampleApi(year, team)
+	}
+
 	async function getData() {
 		let examplePromise = exampleInstance.getData()
 
@@ -20,5 +24,6 @@ const rupgModel = function () {
 	}
 	return {
 		getData,
+		init_data,
 	}
 }

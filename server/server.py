@@ -19,10 +19,10 @@ def sanity():
     return "sanity check"
 
 @app.get('/players')
-def get_players(response: Response, year=2018, team_name="warriors"):
+def get_players(response: Response, year=2018, team="warriors"):
     global caching_metadata
     response.headers['Access-Control-Allow-Origin'] = "*"
-    caller = NbaApi(year, team_name)
+    caller = NbaApi(year, team)
     caller.get_data()
     caching_metadata = caller.proccess_data()
     # return "data fetched, enjoy this server!~"
