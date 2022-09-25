@@ -15,11 +15,8 @@ const rupgModel = function () {
 
 	async function getData() {
 		let examplePromise = exampleInstance.getData()
-
 		return await Promise.all([examplePromise]).then(function (results) {
-			return {
-				example: results[0],
-			}
+			return { example: results[0] }
 		})
 	}
 	return {

@@ -26,7 +26,11 @@ class NbaApi(Api):
         team_id = self.teams_id[self.team_name]
         results = []
         for league in leagues:
-            results += [{"fname": player["firstName"], "lname":player["lastName"], "jersy_number":player["jersey"], "position":player["pos"]} for player in leagues[league] if player["teamId"] == team_id]
+            results += [{"fname": player["firstName"],
+             "lname":player["lastName"], "jersey":player["jersey"],
+              "position":player["pos"],
+               "img": "https://nba-players.herokuapp.com/players/"+player["lastName"]+"/"+player["firstName"]
+               } for player in leagues[league] if player["teamId"] == team_id]
             print(len(results))
         self.proccessed_data = results
         return results

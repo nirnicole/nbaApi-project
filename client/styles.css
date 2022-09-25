@@ -1,0 +1,47 @@
+body{
+    display: grid;
+    grid-gap: clamp(0.3em, 2vh, 1em);
+    padding-left: 1em;
+    padding-right: 1em;
+    grid-template-areas: 
+    "h h h"
+    "b b b" 
+    "b b b" 
+    "b b b" ;
+}
+
+.header{
+    grid-area: h;
+}
+#results {
+    grid-area: b;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    grid-auto-rows: 400px;
+    gap: 6px;
+  }
+
+.item {
+    border: 2px solid red;
+    background: orange;
+    color: rgb(86, 1, 1);
+    padding: 10px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+.jersey{
+    text-align: center;
+    margin: 5px
+  }
+  
+.fullName{
+    text-align: center;
+  }
+  
+.position{
+    text-align: center;
+    margin: 10px
+  }
+  

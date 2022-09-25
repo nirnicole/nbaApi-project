@@ -19,28 +19,36 @@
 			href="https://fonts.googleapis.com/css?family=Indie+Flower"
 			rel="stylesheet"
 		/>
-		<!-- <link
+		<link
 			rel="stylesheet"
 			type="text/css"
 			media="screen"
-			href="style.css"
-		/> -->
+			href="styles.css"
+		/>
 
 		<script id="example-template" type="text/x-handlebars-template">
-			<h1>NBA data:</h1>
 			{{#each playersData}}
-				<li>{{this.fname}} {{this.lname}}</li>
+				<div class="item">
+					<div class="fullName">
+						{{this.lname}}
+						{{this.fname}}
+					</div>
+					<div class="jersey">{{this.jersey}}</div>
+					<div class="img">
+						<img src={{this.img}} alt="" />
+					</div>
+					<div class="position">{{this.position}}</div>
+				</div>
 			{{/each}}
-			<br />
 		</script>
 	</head>
 	<body>
-		<div class="footer">
+		<div class="header">
 			<input id="year" type="text" placeholder="year" />
 			<input id="team" type="text" placeholder="team" />
 			<button id="submit">Get Team</button>
 		</div>
-		<div id="results">hi</div>
+		<div id="results"></div>
 
 		<script src="./src/Apis/ajaxCall.js"></script>
 		<script src="./src/Apis/api.js"></script>
