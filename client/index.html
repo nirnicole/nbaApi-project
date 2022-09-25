@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="shortcut icon" href="#" />
+		<title>API Project</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.js"
+			crossorigin="anonymous"
+		></script>
+		<link
+			href="https://fonts.googleapis.com/css?family=Nunito"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Indie+Flower"
+			rel="stylesheet"
+		/>
+		<!-- <link
+			rel="stylesheet"
+			type="text/css"
+			media="screen"
+			href="style.css"
+		/> -->
+
+		<script id="example-template" type="text/x-handlebars-template">
+			<h2>NBA data:</h2>
+			"{{this.data}}"
+			<br />
+			-example
+		</script>
+	</head>
+
+	<body>
+		<div class="footer">
+			<input type="text" placeholder="team" />
+			<input type="text" placeholder="year" />
+			<button id="submit">Get Team</button>
+		</div>
+		<div class="resluts"></div>
+
+		<script src="./src/Apis/ajaxCall.js"></script>
+		<script src="./src/Apis/api.js"></script>
+		<script src="./src/Apis/exampleAPI.js"></script>
+		<script src="./src/view.js"></script>
+		<script src="./src/model.js"></script>
+		<script src="./src/controller.js"></script>
+	</body>
+</html>
