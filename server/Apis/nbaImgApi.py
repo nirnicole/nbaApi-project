@@ -11,10 +11,6 @@ class NbaImgApi(Api):
 
     def proccess_data(self):
         return self.url
-        # if self.raw_data == "Sorry, that player was not found. Please check the spelling." :
-        #     return "http://localhost:8000/static/defaultImg.png"
-        # else:
-        #     self.proccessed_data = self.raw_data
-        #     return self.url
+
 
     

@@ -7,8 +7,6 @@ class Api:
         self.url = url
         self.raw_data = None
 
-
-
     def get_data(self):
         response = requests.get(self.url, self.headers)
         try:

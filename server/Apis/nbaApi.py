@@ -1,3 +1,4 @@
+from typing import Union
 from .nbaImgApi import NbaImgApi
 from .api import Api
 
@@ -16,21 +17,18 @@ class NbaApi(Api):
         self.raw_data = None
         self.headers={"Content-Type": "application/json"}
 
-        
-    # class PlayerData():
-    #     full_name: Union[str, None] = None
-    #     jersy_number: Union[int, str, None] = None
-    #     position: Union[str, None] = None
 
     def proccess_data(self):
         leagues = self.raw_data["league"]
         team_id = self.teams_id[self.team_name]
         results = []
         for league in leagues:
-            results += [{"fname": player["firstName"],
-             "lname":player["lastName"], "jersey":player["jersey"],
-              "position":player["pos"],
-               "img": NbaImgApi(player["lastName"], player["firstName"]).url
+            results += [{
+                "fname": player["firstName"],
+                "lname":player["lastName"],
+                "jersey":player["jersey"],
+                "position":player["pos"],
+                "img": NbaImgApi(player["lastName"], player["firstName"]).url
                } for player in leagues[league] if player["teamId"] == team_id]
         for i in range(len(results)):
             results[i]["id"]= f"card{i}"
