@@ -33,3 +33,9 @@ $("#submit").on("click", function () {
 		generateData()
 	} else console.warn("no input")
 })
+
+$("body").bind("keypress", function (event) {
+	if (event.keyCode === 13) {
+		$("#submit").trigger("click")
+	}
+})
