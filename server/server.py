@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Response
 from Apis.nbaApi import NbaApi
-from Apis.nbaImgApi import NbaImgApi
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import uvicorn
@@ -13,15 +12,9 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 def root(response: Response):
     return "welcome to a costume NBA server"
 
-@app.get('/static/defaultImg.png')
-def default_img():
-    return FileResponse('./static/defaultImg.png')
-
 @app.get('/static/client/')
 def get_client():
     return FileResponse('./static/client/index.html')
-
-
 
 @app.get('/sanity')
 def sanity():
@@ -31,10 +24,7 @@ def sanity():
 def get_players(response: Response, year=2018, team="warriors"):
     global caching_metadata
     response.headers['Access-Control-Allow-Origin'] = "*"
-    caller = NbaApi(year, team)
-    caller.get_data()
-    caching_metadata = caller.proccess_data()
-    # return "data fetched, enjoy this server!~"
+    caching_metadata = NbaApi(year, team).get_data().proccess_data()
     return caching_metadata
 
 
