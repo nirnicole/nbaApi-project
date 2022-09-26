@@ -15,7 +15,7 @@ class Api:
             self.raw_data = response.json()
         except:
             self.raw_data = response.text
-        return self.raw_data
+        return self
 
     def proccess_data(self):
         pass

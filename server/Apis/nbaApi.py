@@ -1,3 +1,4 @@
+from .nbaImgApi import NbaImgApi
 from .api import Api
 
 class NbaApi(Api):
@@ -29,8 +30,9 @@ class NbaApi(Api):
             results += [{"fname": player["firstName"],
              "lname":player["lastName"], "jersey":player["jersey"],
               "position":player["pos"],
-               "img": "https://nba-players.herokuapp.com/players/"+player["lastName"]+"/"+player["firstName"]
+               "img": NbaImgApi(player["lastName"], player["firstName"]).url
                } for player in leagues[league] if player["teamId"] == team_id]
-            print(len(results))
+        for i in range(len(results)):
+            results[i]["id"]= f"card{i}"
         self.proccessed_data = results
         return results

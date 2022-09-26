@@ -1,11 +1,11 @@
-class MetaDataApi extends Api {
+class NbaImgsApi extends Api {
 	constructor(
-		year = "2018",
-		team = "lakers",
+		lname = "james",
+		fname = "lebron",
 		apiInterface = new AjaxCall(),
-		url = "http://localhost:8000/players"
+		url = "http://localhost:8000/player-img"
 	) {
-		url = `${url}?year=${year}&team=${team}`
+		url = `${url}?lname=${lname}&fname=${fname}`
 		super(apiInterface, url)
 	}
 

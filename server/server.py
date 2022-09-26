@@ -1,17 +1,21 @@
-from functools import total_ordering
 from fastapi import FastAPI, Response
-import uvicorn
-from heapq import heappop, heappush, heapify
 from Apis.nbaApi import NbaApi
 from Apis.nbaImgApi import NbaImgApi
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import uvicorn
 
 app = FastAPI()
-caching_metadata = {}
+caching_metadata = []
+app.mount('/server', StaticFiles(directory='static'), name='static')
 
 @app.get('/')
 def root(response: Response):
     return "welcome to a costume NBA server"
 
+@app.get('/static/defaultImg.png')
+def default_img():
+    return FileResponse('./static/defaultImg.png')
 
         
 @app.get('/sanity')
@@ -27,15 +31,6 @@ def get_players(response: Response, year=2018, team="warriors"):
     caching_metadata = caller.proccess_data()
     # return "data fetched, enjoy this server!~"
     return caching_metadata
-
-# redirection
-@app.get('/player-img')
-def get_players(response: Response, lname, fname):
-    response.headers['Access-Control-Allow-Origin'] = "*"
-    print(lname)
-    print(fname)
-    caller = NbaImgApi(lname, fname)
-    return f"<img src=\"{caller.url}\">"
 
 
 @app.post('/')

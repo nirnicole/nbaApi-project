@@ -7,18 +7,19 @@
   driven by the Controller and used by the View(renderModule).
 */
 const rupgModel = function () {
-	let exampleInstance = new exampleApi()
+	let nbaMetaInstance = new MetaDataApi()
 
 	function init_data(year, team) {
-		exampleInstance = new exampleApi(year, team)
+		nbaMetaInstance = new MetaDataApi(year, team)
 	}
 
 	async function getData() {
-		let examplePromise = exampleInstance.getData()
-		return await Promise.all([examplePromise]).then(function (results) {
-			return { example: results[0] }
+		let nbaMetaPromise = nbaMetaInstance.getData()
+		return await Promise.all([nbaMetaPromise]).then(function (results) {
+			return { metaDate: results[0] }
 		})
 	}
+
 	return {
 		getData,
 		init_data,

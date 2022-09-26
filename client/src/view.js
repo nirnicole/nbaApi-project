@@ -10,7 +10,8 @@ const rupgRender = function () {
 	//template method
 	const renderPage = function (res) {
 		console.log(res)
-		renderComponent("#example-template", "#results", res.example)
+		renderComponent("#example-template", "#results", res.metaDate)
+		appandImg(res.metaDate)
 	}
 
 	const renderComponent = function (hbTemplate, elementToRender, data) {
@@ -21,6 +22,14 @@ const rupgRender = function () {
 		$(elementToRender).append(newHTML)
 	}
 
+	const appandImg = function (data) {
+		for (player of data) {
+			console.log(player.img)
+			$(`#${player.id}`).append(
+				`<img src=${player.img} onerror="this.src='https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png';" alt="not found" />`
+			)
+		}
+	}
 	return {
 		renderPage,
 		renderComponent,
