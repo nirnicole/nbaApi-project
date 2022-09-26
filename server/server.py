@@ -7,7 +7,7 @@ import uvicorn
 
 app = FastAPI()
 caching_metadata = []
-app.mount('/server', StaticFiles(directory='static'), name='static')
+app.mount('/static', StaticFiles(directory='static'), name='static')
 
 @app.get('/')
 def root(response: Response):
@@ -17,7 +17,12 @@ def root(response: Response):
 def default_img():
     return FileResponse('./static/defaultImg.png')
 
-        
+@app.get('/static/client/')
+def get_client():
+    return FileResponse('./static/client/index.html')
+
+
+
 @app.get('/sanity')
 def sanity():
     return "sanity check"
