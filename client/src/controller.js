@@ -1,9 +1,5 @@
 /*
   Author: Nir Nicole
-  Date: 24/8/22
-  M V |C| architecture:
-  this is the Controller module.
-  this script contains all of the page integrating flow, it takes data from the model and render it threw the view.
 */
 const model = rupgModel()
 const renderer = rupgRender()
@@ -33,7 +29,7 @@ $("#submit").on("click", function () {
 	year = $("#year").val()
 	team = $("#team").val()
 	if (year != "" && team != "") {
-		model.init_data(year, team)
-		generateData(year, team)
+		model.initData(year, team)
+		generateData()
 	} else console.warn("no input")
 })

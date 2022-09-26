@@ -1,17 +1,10 @@
 class MetaDataApi extends Api {
-	constructor(
-		year = "2018",
-		team = "lakers",
-		apiInterface = new AjaxCall(),
-		url = "http://localhost:8000/players"
-	) {
-		url = `${url}?year=${year}&team=${team}`
+	constructor(year = "2018", team = "lakers", apiInterface = new AjaxCall()) {
+		let url = `http://localhost:8000/players?year=${year}&team=${team}`
 		super(apiInterface, url)
 	}
 
 	async getData() {
-		//proccesing
-		let resolvedPromise = await this.callApi()
-		return resolvedPromise
+		return await this.callApi()
 	}
 }
