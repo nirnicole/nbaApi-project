@@ -1,3 +1,5 @@
+import os
+import pathlib
 from fastapi import FastAPI, Response
 from Apis.nbaApi import NbaApi
 from fastapi.staticfiles import StaticFiles
@@ -6,15 +8,13 @@ import uvicorn
 
 app = FastAPI()
 caching_metadata = []
-app.mount('/static', StaticFiles(directory='static'), name='static')
+app.mount('/user', StaticFiles(directory='..\client'), name='client')
+
 
 @app.get('/')
 def root(response: Response):
     return "welcome to a costume NBA server"
 
-@app.get('/static/client/')
-def get_client():
-    return FileResponse('./static/client/index.html')
 
 @app.get('/sanity')
 def sanity():
