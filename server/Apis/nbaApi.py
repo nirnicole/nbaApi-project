@@ -1,4 +1,3 @@
-from typing import Union
 from .nbaImgApi import NbaImgApi
 from .api import Api
 
