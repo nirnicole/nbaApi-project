@@ -6,7 +6,8 @@ class NbaApi(Api):
         "lakers": "1610612747",
         "warriors": "1610612744",
         "heat": "1610612748",
-        "suns": "1610612756"
+        "suns": "1610612756",
+        "pelicans": "1610612740"
     }   
 
     def __init__(self, year=2018, team_name=None):

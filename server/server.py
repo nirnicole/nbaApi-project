@@ -1,5 +1,3 @@
-import os
-import pathlib
 from fastapi import FastAPI, Response
 from Apis.nbaApi import NbaApi
 from fastapi.staticfiles import StaticFiles
@@ -8,12 +6,11 @@ import uvicorn
 
 app = FastAPI()
 caching_metadata = []
-app.mount('/user', StaticFiles(directory='..\client'), name='client')
 
 
-@app.get('/')
-def root(response: Response):
-    return "welcome to a costume NBA server"
+# @app.get('/')
+# def root(response: Response):
+#     return "welcome to a costume NBA server for client side add homepage path"
 
 
 @app.get('/sanity')
@@ -39,6 +36,9 @@ def put():
 @app.delete('/')
 def delete():
     pass
+
+app.mount('/', StaticFiles(directory='..\client',html = True), name='client')
+
 
 if __name__ == "__main__":
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
