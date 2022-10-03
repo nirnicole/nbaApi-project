@@ -1,17 +1,10 @@
 from fastapi import FastAPI, Response
 from Apis.nbaApi import NbaApi
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 import uvicorn
 
 app = FastAPI()
 caching_metadata = []
-
-
-# @app.get('/')
-# def root(response: Response):
-#     return "welcome to a costume NBA server for client side add homepage path"
-
 
 @app.get('/sanity')
 def sanity():

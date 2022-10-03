@@ -8,7 +8,7 @@ class NbaApi(Api):
         "heat": "1610612748",
         "suns": "1610612756",
         "pelicans": "1610612740"
-    }   
+    }
 
     def __init__(self, year=2018, team_name=None):
         super().__init__("http://data.nba.net/10s/prod/v1/"+f"{year}/players.json")
@@ -29,7 +29,7 @@ class NbaApi(Api):
                 "jersey":player["jersey"],
                 "position":player["pos"],
                 "img": NbaImgApi(player["lastName"], player["firstName"]).url
-               } for player in leagues[league] if player["teamId"] == team_id]
+               } for player in leagues[league] if bool(player["isActive"])==True and player["teamId"] == team_id]
         for i in range(len(results)):
             results[i]["id"]= f"card{i}"
         self.proccessed_data = results
