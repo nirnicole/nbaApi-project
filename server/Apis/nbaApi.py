@@ -10,10 +10,11 @@ class NbaApi(Api):
         "pelicans": "1610612740"
     }
 
-    def __init__(self, year=2018, team_name=None):
+    def __init__(self, year=2018, team_name=None, isActive = False):
         super().__init__("http://data.nba.net/10s/prod/v1/"+f"{year}/players.json")
         self.year = year
         self.team_name = team_name
+        self.isActive = isActive
         self.raw_data = None
         self.headers={"Content-Type": "application/json"}
 
@@ -24,13 +25,13 @@ class NbaApi(Api):
         results = []
         for league in leagues:
             results += [{
+                "id": player["personId"],
                 "fname": player["firstName"],
                 "lname":player["lastName"],
                 "jersey":player["jersey"],
                 "position":player["pos"],
+                "isActive":player["isActive"],
                 "img": NbaImgApi(player["lastName"], player["firstName"]).url
-               } for player in leagues[league] if bool(player["isActive"])==True and player["teamId"] == team_id]
-        for i in range(len(results)):
-            results[i]["id"]= f"card{i}"
+               } for player in leagues[league] if (self.isActive and bool(player["isActive"]) or not self.isActive ) and player["teamId"] == team_id]
         self.proccessed_data = results
         return results
