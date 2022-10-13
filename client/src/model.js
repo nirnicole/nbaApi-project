@@ -3,9 +3,11 @@
 */
 const rupgModel = function () {
 	let nbaMetaInstance
+	let dreamTeamInstance
 
-	function initData(year, team) {
-		nbaMetaInstance = new MetaDataApi(year, team)
+	function initData(year, team, active) {
+		nbaMetaInstance = new MetaDataApi(year, team, active)
+		dreamTeamInstance = new DreamTeamApi()
 	}
 
 	async function getData() {
@@ -15,8 +17,23 @@ const rupgModel = function () {
 		})
 	}
 
+	async function addPlayer(playerId) {
+		let addedPlayerPromise = dreamTeamInstance.postData(playerId)
+		return await Promise.all([addedPlayerPromise]).then(function (results) {
+			return { metaData: results[0] }
+		})
+	}
+
+	async function deletePlayer(playerId) {
+		let addedPlayerPromise = dreamTeamInstance.deleteData(playerId)
+		return await Promise.all([addedPlayerPromise]).then(function (results) {
+			return { metaData: results[0] }
+		})
+	}
 	return {
 		getData,
 		initData,
+		addPlayer,
+		deletePlayer,
 	}
 }
