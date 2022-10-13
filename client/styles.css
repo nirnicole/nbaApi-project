@@ -33,6 +33,24 @@ body{
     justify-content: center;
   }
 
+.dt-item {
+    border: 2px solid black;
+    background: grey;
+    color: rgb(86, 1, 1);
+    padding: 10px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+.item > .dreamteam-card-button {
+    background-color: green;
+  }
+
+.dt-item > .dreamteam-card-button {
+  background-color: red;
+  }
+
 .jersey{
     text-align: center;
     margin: 5px
@@ -166,4 +184,78 @@ input[type="text"]:focus{
   0% { background-position: 0 0; }
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
+}
+
+:root {
+  font: 700 16px/1 Verdana;
+}
+
+.active-bar{
+  display: inline-block;
+}
+
+
+* {
+  --switch-height: 34px;
+  --switch-padding: 8px;
+  --switch-width: calc((var(--switch-height) * 2) - var(--switch-padding));
+  --slider-height: calc(var(--switch-height) - var(--switch-padding));
+  --slider-on: calc(var(--switch-height) - var(--switch-padding));
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: var(--switch-width);
+  /* height: var(--switch-height); */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  /* height: 0; */
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: var(--slider-height);
+  width: var(--slider-height);
+  left: calc(var(--switch-padding) / 2);
+  bottom: calc(var(--switch-padding) / 2);
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  transform: translateX(var(--slider-on));
+}
+
+.slider.round {
+  border-radius: var(--slider-height);
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
