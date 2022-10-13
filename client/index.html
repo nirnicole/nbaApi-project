@@ -20,7 +20,7 @@
 
 		<script id="example-template" type="text/x-handlebars-template">
 			{{#each playersData}}
-				<div class="item">
+				<div class="item" data-id={{this.id}} data-dt="false">
 					<div class="fullName">
 						{{this.lname}}
 						{{this.fname}}
@@ -28,6 +28,7 @@
 					<div class="jersey">{{this.jersey}}</div>
 					<div class="img" id={{this.id}}></div>
 					<div class="position">{{this.position}}</div>
+					<button class="dreamteam-card-button">Add to dream team</button>
 				</div>
 			{{/each}}
 		</script>
@@ -41,12 +42,27 @@
 			<div class="text-input">
 				<input id="team" type="text" placeholder="team" />
 			</div>
+			<div class="active-bar">
+				<label class="switch">
+					<input type="checkbox" id="is-active" />
+					<span class="slider round"></span>
+				</label>
+				Active Players
+			</div>
+			<br />
+			<br />
+			<button id="deam-team" class="glow-on-hover">
+				Retrive Dream Team
+			</button>
 		</div>
+
+		<h2 id="results-label">Search Results:</h2>
 		<div id="results"></div>
 
 		<script src="./src/Apis/ajaxCall.js"></script>
 		<script src="./src/Apis/api.js"></script>
 		<script src="./src/Apis/metaDataAPI.js"></script>
+		<script src="./src/Apis/dreamTeamAPI.js"></script>
 		<script src="./src/view.js"></script>
 		<script src="./src/model.js"></script>
 		<script src="./src/controller.js"></script>
