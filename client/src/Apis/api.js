@@ -6,8 +6,8 @@ by default, all api calls are now a "GET" call.
 */
 class Api {
 	url = ""
-	method = ""
-	proccesedData
+	method = "GET"
+	proccesedData = ""
 	callerInteface
 
 	constructor(callerInteface, url, method = "GET") {
@@ -16,18 +16,21 @@ class Api {
 		this.method = method
 	}
 
-	async callApi(attempts = 0) {
-		return await this.callerInteface.getApi(this.url).catch((error) => {
-			this.errorHandeler(this.callApi, attempts)
-		})
+	async callApi(attempts = 0, data = { "data": "empty" }) {
+		console.log(this.url, this.method, data)
+		return await this.callerInteface
+			.getApi(this.url, this.method, data)
+			.catch((error) => {
+				this.errorHandeler(this.callApi, attempts, data)
+			})
 	}
 
-	errorHandeler(method, attempts) {
+	errorHandeler(method, attempts, data = { "data": data }) {
 		if (attempts++ < 3) {
 			console.warn(`error in : ${this.constructor.name} \n
                         Attampts left: ${3 - attempts}\n
                         trying again...`)
-			return method(attempts)
+			return method(attempts, data)
 		} else {
 			console.log(`attampet limit reached, please check whats wrong`)
 		}
