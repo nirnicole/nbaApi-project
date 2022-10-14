@@ -4,6 +4,12 @@
 const rupgRender = function () {
 	const renderPage = function (res) {
 		console.log(res)
+		Handlebars.registerHelper("chooseClass", (isDT) =>
+			isDT ? "dt-item" : "item"
+		) //handle bar function to indicate dreamteam css
+		Handlebars.registerHelper("dreamOptions", (isDT) =>
+			isDT ? "Remove from Dream Team" : "Add to Dream Team"
+		) //handle bar function to indicate dreamteam css
 		renderComponent("#example-template", "#results", res.metaData)
 		appandImgs(res.metaData)
 	}

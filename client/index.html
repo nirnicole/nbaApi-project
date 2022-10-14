@@ -20,7 +20,12 @@
 
 		<script id="example-template" type="text/x-handlebars-template">
 			{{#each playersData}}
-				<div class="item" data-id={{this.id}} data-dt="false">
+				<div
+					class={{chooseClass this.dreamTeam}}
+					data-id={{this.id}}
+					data-dt={{this.dreamTeam}}
+					data-json={{this}}
+				>
 					<div class="fullName">
 						{{this.lname}}
 						{{this.fname}}
@@ -28,7 +33,9 @@
 					<div class="jersey">{{this.jersey}}</div>
 					<div class="img" id={{this.id}}></div>
 					<div class="position">{{this.position}}</div>
-					<button class="dreamteam-card-button">Add to dream team</button>
+					<button class="dreamteam-card-button">{{dreamOptions
+							this.dreamTeam
+						}}</button>
 				</div>
 			{{/each}}
 		</script>
@@ -51,7 +58,7 @@
 			</div>
 			<br />
 			<br />
-			<button id="deam-team" class="glow-on-hover">
+			<button id="dream-team" class="glow-on-hover">
 				Retrive Dream Team
 			</button>
 		</div>
