@@ -31,7 +31,8 @@ class NbaApi(Api):
                 "jersey":player["jersey"],
                 "position":player["pos"],
                 "isActive":player["isActive"],
-                "img": NbaImgApi(player["lastName"], player["firstName"]).url
+                "img": NbaImgApi(player["lastName"], player["firstName"]).url,
+                "dreamTeam": False
                } for player in leagues[league] if (self.isActive and bool(player["isActive"]) or not self.isActive ) and player["teamId"] == team_id]
         self.proccessed_data = results
         return results
