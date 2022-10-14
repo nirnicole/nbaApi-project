@@ -14,16 +14,12 @@ class DreamTeamApi extends Api {
 	}
 
 	async postData(data = "") {
-		console.log(data)
 		this.method = "POST"
-		console.log(this)
-		return await this.callApi(0, { "data": data })
+		return await this.callApi(0, data)
 	}
 
 	async deleteData(data = "") {
-		console.log(data)
 		this.method = "DELETE"
-		console.log(this)
-		return await this.callApi(0, { "data": data })
+		return await this.callApi(0, data)
 	}
 }

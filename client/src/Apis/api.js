@@ -17,7 +17,6 @@ class Api {
 	}
 
 	async callApi(attempts = 0, data = { "data": "empty" }) {
-		console.log(this.url, this.method, data)
 		return await this.callerInteface
 			.getApi(this.url, this.method, data)
 			.catch((error) => {
