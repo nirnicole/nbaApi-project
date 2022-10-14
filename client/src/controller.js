@@ -12,9 +12,9 @@ class UserRequest {
 const model = rupgModel()
 const renderer = rupgRender()
 
-const generateData = function (attempts = 0) {
+const generateData = function (attempts = 0, dreamTeam = false) {
 	model
-		.getData()
+		.getData(dreamTeam)
 		.then((res) => {
 			renderer.renderPage(res)
 			return res
@@ -33,7 +33,6 @@ const generateData = function (attempts = 0) {
 }
 
 $("#submit").on("click", function () {
-	console.log("working")
 	let year = $("#year").val()
 	let team = $("#team").val()
 	let active = $("#is-active").is(":checked")
@@ -50,17 +49,24 @@ $("body").bind("keypress", function (event) {
 	}
 })
 
+$("#dream-team").on("click", function () {
+	model.initData()
+	generateData(0, true)
+})
+
 $("#results").on("click", "button", function () {
 	let isDreamTeam = $(this).parent("div").attr("data-dt")
+	let player_id = $(this).parent("div").attr("data-id")
+	let player_data = model.getCache().find((p) => p.id == player_id)
 	if (String(isDreamTeam).toLowerCase() == "true") {
 		//send delete api
-		model.deletePlayer($(this).parent("div").attr("data-id"))
+		model.deletePlayer(player_data)
 		$(this).parent("div").attr("class", "item")
 		$(this).text("Add to dreamTeam")
 		$(this).parent("div").attr("data-dt", "false")
 	} else {
 		//send post api
-		model.addPlayer($(this).parent("div").attr("data-id"))
+		model.addPlayer(player_data)
 		$(this).parent("div").attr("class", "dt-item")
 		$(this).text("Remove from dreamTeam")
 		$(this).parent("div").attr("data-dt", "true")
