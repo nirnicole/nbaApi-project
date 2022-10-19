@@ -5,8 +5,7 @@ class DreamTeamApi extends Api {
 		active = false,
 		apiInterface = new AjaxCall()
 	) {
-		let url = `http://localhost:8000/dreamTeam/`
-		super(apiInterface, url)
+		super(apiInterface, `http://localhost:8000/dreamTeam/`)
 	}
 
 	async getData() {
@@ -20,6 +19,7 @@ class DreamTeamApi extends Api {
 
 	async deleteData(data = "") {
 		this.method = "DELETE"
+		this.resources = data
 		return await this.callApi(0, data)
 	}
 }

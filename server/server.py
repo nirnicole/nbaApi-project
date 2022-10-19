@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from Apis.nbaApi import NbaApi
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+from Apis.playerStatsApi import PlayerStatsApi
 
 app = FastAPI()
 caching_metadata = []
@@ -46,16 +47,27 @@ def post(data: Player):
     return data
 
 @app.put('/dreamTeam/')
-def put():
-    pass
-
-@app.delete('/dreamTeam/')
-def delete(data: Player):
+def put(data: Player):
     global caching_dreamteam
-    player = caching_dreamteam[data.id]
-    del caching_dreamteam[data.id]
-    print("hello im deleting data: \n", player)
+    data.dreamTeam = True
+    caching_dreamteam[data.id] = data
+    return data
+
+@app.delete('/dreamTeam/{id}')
+def delete(id):
+    global caching_dreamteam
+    id=int(id)
+    player = caching_dreamteam[id]
+    del caching_dreamteam[id]
     return player
+
+
+@app.get('/playerstats/{lname}/{fname}')
+def get(response: Response, lname, fname):
+    res = PlayerStatsApi().get_data(lname,fname).proccess_data()
+    print(res)
+    return res
+
 
 app.mount('/', StaticFiles(directory='..\client', html = True), name='client')
 

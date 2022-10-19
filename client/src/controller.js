@@ -50,25 +50,53 @@ $("body").bind("keypress", function (event) {
 })
 
 $("#dream-team").on("click", function () {
-	model.initData()
+	model.initDreamTeam()
 	generateData(0, true)
 })
 
-$("#results").on("click", "button", function () {
+$("#results").on("click", ".dreamteam-card-button", function () {
+	model.initDreamTeam()
 	let isDreamTeam = $(this).parent("div").attr("data-dt")
 	let player_id = $(this).parent("div").attr("data-id")
-	let player_data = model.getCache().find((p) => p.id == player_id)
 	if (String(isDreamTeam).toLowerCase() == "true") {
 		//send delete api
-		model.deletePlayer(player_data)
+		model.deletePlayer(player_id)
 		$(this).parent("div").attr("class", "item")
 		$(this).text("Add to dreamTeam")
 		$(this).parent("div").attr("data-dt", "false")
 	} else {
 		//send post api
+		let player_data = model.getCache().find((p) => p.id == player_id)
 		model.addPlayer(player_data)
 		$(this).parent("div").attr("class", "dt-item")
 		$(this).text("Remove from dreamTeam")
 		$(this).parent("div").attr("data-dt", "true")
+	}
+})
+
+$("#results").on("click", ".stats-button", function () {
+	let isShown = $(this).parent("div").find(".img").attr("data-stats")
+	let player_id = $(this).parent("div").attr("data-id")
+	let player_fname = $(this).parent("div").attr("data-fname")
+	let player_lname = $(this).parent("div").attr("data-lname")
+	model.initShowStats()
+	if (String(isShown).toLowerCase() == "false") {
+		$(this)
+			.parent("div")
+			.find(".img")
+			.find(".player-stats-hide")
+			.attr("class", "player-stats-show")
+		$(this).parent("div").find(".img").attr("data-stats", "true")
+		model.showStats(player_lname, player_fname).then((res) => {
+			renderer.renderStats(player_id, res)
+			return res
+		})
+	} else {
+		$(this)
+			.parent("div")
+			.find(".img")
+			.find(".player-stats-show")
+			.attr("class", "player-stats-hide")
+		$(this).parent("div").find(".img").attr("data-stats", "false")
 	}
 })

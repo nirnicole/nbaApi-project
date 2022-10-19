@@ -3,13 +3,8 @@
 */
 const rupgRender = function () {
 	const renderPage = function (res) {
-		console.log(res)
-		Handlebars.registerHelper("chooseClass", (isDT) =>
-			isDT ? "dt-item" : "item"
-		) //handle bar function to indicate dreamteam css
-		Handlebars.registerHelper("dreamOptions", (isDT) =>
-			isDT ? "Remove from Dream Team" : "Add to Dream Team"
-		) //handle bar function to indicate dreamteam css
+		dreamteamHB()
+		dreamOptionsHB()
 		renderComponent("#example-template", "#results", res.metaData)
 		appandImgs(res.metaData)
 	}
@@ -25,14 +20,31 @@ const rupgRender = function () {
 	const appandImgs = function (metaData) {
 		for (player of metaData) {
 			let elementToRender = `#${player.id}`
-			let newHTML = `<img src=${player.img} onerror="this.src='https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png';" alt="not found" />`
-			$(elementToRender).empty()
-			$(elementToRender).append(newHTML)
+			renderComponent("#imgs-template", elementToRender, player)
 		}
 	}
+
+	const renderStats = function (pid, data) {
+		let elementToRender = `#stats${pid}`
+		renderComponent("#stats-template", elementToRender, data.metaData)
+	}
+
+	const dreamteamHB = function () {
+		Handlebars.registerHelper("chooseClass", (isDT) =>
+			isDT ? "dt-item" : "item"
+		)
+	}
+
+	const dreamOptionsHB = function () {
+		Handlebars.registerHelper("dreamOptions", (isDT) =>
+			isDT ? "Remove from Dream Team" : "Add to Dream Team"
+		)
+	}
+
 	return {
 		renderPage,
 		renderComponent,
 		appandImgs,
+		renderStats,
 	}
 }

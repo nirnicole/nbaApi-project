@@ -10,15 +10,16 @@ class Api {
 	proccesedData = ""
 	callerInteface
 
-	constructor(callerInteface, url, method = "GET") {
-		this.callerInteface = callerInteface //dependancy injection
+	constructor(callerInteface, url, method = "GET", resources = "") {
 		this.url = url
 		this.method = method
+		this.resources = resources
+		this.callerInteface = callerInteface //dependancy injection
 	}
 
 	async callApi(attempts = 0, data = { "data": "empty" }) {
 		return await this.callerInteface
-			.getApi(this.url, this.method, data)
+			.getApi(this.url, this.method, data, this.resources)
 			.catch((error) => {
 				this.errorHandeler(this.callApi, attempts, data)
 			})

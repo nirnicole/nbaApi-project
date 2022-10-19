@@ -25,19 +25,58 @@
 					data-id={{this.id}}
 					data-dt={{this.dreamTeam}}
 					data-json={{this}}
+					data-fname={{this.fname}}
+					data-lname={{this.lname}}
 				>
 					<div class="fullName">
 						{{this.lname}}
 						{{this.fname}}
 					</div>
 					<div class="jersey">{{this.jersey}}</div>
-					<div class="img" id={{this.id}}></div>
+					<div class="img" id={{this.id}} data-stats="false"></div>
 					<div class="position">{{this.position}}</div>
 					<button class="dreamteam-card-button">{{dreamOptions
 							this.dreamTeam
 						}}</button>
+					<button class="stats-button">Stats</button>
 				</div>
 			{{/each}}
+		</script>
+
+		<script id="stats-template" type="text/x-handlebars-template">
+			<table>
+				<tr>
+					<td>Games played: </td>
+					<td colspan="1">{{this.playersData.gamesPlayed}}</td>
+				</tr>
+				<tr>
+					<td>Minutes PG: </td>
+					<td colspan="1">{{this.playersData.minutesPG}}</td>
+				</tr>
+				<tr>
+					<td>%Field goals: </td>
+					<td colspan="1">{{this.playersData.fieldGP}}</td>
+				</tr>
+				<tr>
+					<td>%Threes: </td>
+					<td colspan="1">{{this.playersData.threePP}}</td>
+				</tr>
+				<tr>
+					<td>Rebounds PG: </td>
+					<td colspan="1">{{this.playersData.reboundsPG}}</td>
+				</tr>
+			</table>
+		</script>
+
+		<script id="imgs-template" type="text/x-handlebars-template">
+			<img
+				src="{{this.playersData.img}}"
+				onerror="this.src='https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png';"
+				alt="not found"
+			/><div
+				id="stats{{this.playersData.id}}"
+				class="player-stats-hide"
+			>Loading Stats...</div>
 		</script>
 	</head>
 	<body>
@@ -63,12 +102,12 @@
 			</button>
 		</div>
 
-		<h2 id="results-label">Search Results:</h2>
 		<div id="results"></div>
 
 		<script src="./src/Apis/ajaxCall.js"></script>
 		<script src="./src/Apis/api.js"></script>
 		<script src="./src/Apis/metaDataAPI.js"></script>
+		<script src="./src/Apis/playerStatsAPI.js"></script>
 		<script src="./src/Apis/dreamTeamAPI.js"></script>
 		<script src="./src/view.js"></script>
 		<script src="./src/model.js"></script>

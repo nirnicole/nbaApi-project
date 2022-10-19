@@ -8,6 +8,7 @@ class Api:
         self.raw_data = None
 
     def get_data(self):
+        print(self.url)
         response = requests.get(self.url, self.headers)
         try:
             self.raw_data = response.json()

@@ -5,8 +5,8 @@ class MetaDataApi extends Api {
 		active = false,
 		apiInterface = new AjaxCall()
 	) {
-		let url = `http://localhost:8000/players?year=${year}&team=${team}&isActive=${active}`
-		super(apiInterface, url)
+		super(apiInterface, `http://localhost:8000/`)
+		this.resources = `players?year=${year}&team=${team}&isActive=${active}`
 	}
 
 	async getData() {
