@@ -11,10 +11,10 @@ class Api {
 	callerInteface
 
 	constructor(callerInteface, url, method = "GET", resources = "") {
+		this.callerInteface = callerInteface //dependancy injection
 		this.url = url
 		this.method = method
 		this.resources = resources
-		this.callerInteface = callerInteface //dependancy injection
 	}
 
 	async callApi(attempts = 0, data = { "data": "empty" }) {
