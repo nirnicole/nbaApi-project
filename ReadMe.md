@@ -16,7 +16,7 @@
 - picking your own dream-team!
 
 ## Screenshots
-![image](https://user-images.githubusercontent.com/54746985/189476431-58e9f765-463c-4cb4-ab68-aecc270b94e1.png)
+![image](https://user-images.githubusercontent.com/54746985/196617872-454155e0-02a8-49aa-b8b5-a8fba7c1930e.png)
 
 ## Direct-Link
 To see the final prodect up and running,
