@@ -1,35 +1,20 @@
 /*
   Author: Nir Nicole
 */
-class UserRequest {
-	constructor(year = 2020, team = "Lakers", isActive = false) {
-		this.year = year
-		this.team = team
-		this.isActive = isActive
-	}
-}
 
 const model = rupgModel()
 const renderer = rupgRender()
 
-const generateData = function (attempts = 0, dreamTeam = false) {
+Handlebars.registerHelper("chooseClass", (isDT) => (isDT ? "dt-item" : "item"))
+Handlebars.registerHelper("dreamOptions", (isDT) =>
+	isDT ? "Remove from Dream Team" : "Add to Dream Team"
+)
+
+const generateData = function (attempts = 5, dreamTeam = false) {
 	model
 		.getData(dreamTeam)
-		.then((res) => {
-			renderer.renderPage(res)
-			return res
-		})
-		.catch((error) => {
-			console.log(error)
-			if (attempts++ < 3) {
-				console.warn(`coudlnt load user.\n
-                Attampts left: ${3 - attempts}\n
-                trying again...`)
-				generateData(attempts)
-			} else {
-				console.log(`attampet limit reached, please check whats wrong`)
-			}
-		})
+		.then((res) => renderer.renderResults(res))
+		.catch((error) => errorHandeling(error, attempts, generateData))
 }
 
 $("#submit").on("click", function () {
@@ -37,7 +22,6 @@ $("#submit").on("click", function () {
 	let team = $("#team").val()
 	let active = $("#is-active").is(":checked")
 	if (year != "" && team != "") {
-		// let request = new UserRequest(year, team, active)
 		model.initData(year, team, active)
 		generateData()
 	} else console.warn("no input")
@@ -51,52 +35,60 @@ $("body").bind("keypress", function (event) {
 
 $("#dream-team").on("click", function () {
 	model.initDreamTeam()
-	generateData(0, true)
+	generateData(5, true)
 })
 
 $("#results").on("click", ".dreamteam-card-button", function () {
-	model.initDreamTeam()
 	let isDreamTeam = $(this).parent("div").attr("data-dt")
 	let player_id = $(this).parent("div").attr("data-id")
+	let player_data = model.getCache().find((p) => p.id == player_id)
+	model.initDreamTeam()
+
 	if (String(isDreamTeam).toLowerCase() == "true") {
-		//send delete api
-		model.deletePlayer(player_id)
-		$(this).parent("div").attr("class", "item")
-		$(this).text("Add to dreamTeam")
-		$(this).parent("div").attr("data-dt", "false")
+		model
+			.deletePlayer(player_id)
+			.then((res) => renderer.renderCard(player_id, res.metaData))
 	} else {
-		//send post api
-		let player_data = model.getCache().find((p) => p.id == player_id)
-		model.addPlayer(player_data)
-		$(this).parent("div").attr("class", "dt-item")
-		$(this).text("Remove from dreamTeam")
-		$(this).parent("div").attr("data-dt", "true")
+		model
+			.addPlayer(player_data)
+			.then((res) => renderer.renderCard(player_id, res.metaData))
 	}
 })
 
 $("#results").on("click", ".stats-button", function () {
-	let isShown = $(this).parent("div").find(".img").attr("data-stats")
-	let player_id = $(this).parent("div").attr("data-id")
-	let player_fname = $(this).parent("div").attr("data-fname")
-	let player_lname = $(this).parent("div").attr("data-lname")
+	let player_card = $(this).parent("div")
+	let isShown = player_card.find(".img").attr("data-stats")
+	let player_id = player_card.attr("data-id")
+	let player_data = model.getCache().find((p) => p.id == player_id)
 	model.initShowStats()
+
 	if (String(isShown).toLowerCase() == "false") {
-		$(this)
-			.parent("div")
+		player_card
 			.find(".img")
 			.find(".player-stats-hide")
 			.attr("class", "player-stats-show")
-		$(this).parent("div").find(".img").attr("data-stats", "true")
-		model.showStats(player_lname, player_fname).then((res) => {
+		player_card.find(".img").attr("data-stats", "true")
+		model.showStats(player_data.lname, player_data.fname).then((res) => {
 			renderer.renderStats(player_id, res)
 			return res
 		})
 	} else {
-		$(this)
-			.parent("div")
+		player_card
 			.find(".img")
 			.find(".player-stats-show")
 			.attr("class", "player-stats-hide")
-		$(this).parent("div").find(".img").attr("data-stats", "false")
+		player_card.find(".img").attr("data-stats", "false")
 	}
 })
+
+let errorHandeling = function (error, attempts, callback) {
+	console.warn(error)
+	if (attempts-- > 0) {
+		console.warn(`coudlnt load user.\n
+			Attampts left: ${attempts}\n
+			trying again...`)
+		callback(attempts)
+	} else {
+		console.log(`attampet limit reached, please check whats wrong`)
+	}
+}

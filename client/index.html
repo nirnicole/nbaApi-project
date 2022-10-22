@@ -17,28 +17,56 @@
 			media="screen"
 			href="styles.css"
 		/>
+		<script id="card-template" type="text/x-handlebars-template">
+			<div
+				class={{chooseClass this.dreamTeam}}
+				data-id={{this.id}}
+				data-dt={{this.dreamTeam}}
+				data-json={{this}}
+				data-fname={{this.fname}}
+				data-lname={{this.lname}}
+			>
+				<div class="fullName">
+					{{this.lname}}
+					{{this.fname}}
+				</div>
+				<div class="jersey">{{this.jersey}}</div>
+				<div class="img" id={{this.id}} data-stats="false"></div>
+				<div class="position">{{this.position}}</div>
+				<button class="dreamteam-card-button">{{dreamOptions
+						this.dreamTeam
+					}}</button>
+				<button class="stats-button">Stats</button>
+			</div>
+		</script>
 
-		<script id="example-template" type="text/x-handlebars-template">
+		<script id="results-template" type="text/x-handlebars-template">
 			{{#each playersData}}
-				<div
-					class={{chooseClass this.dreamTeam}}
-					data-id={{this.id}}
-					data-dt={{this.dreamTeam}}
-					data-json={{this}}
-					data-fname={{this.fname}}
-					data-lname={{this.lname}}
-				>
-					<div class="fullName">
-						{{this.lname}}
-						{{this.fname}}
+				<div id="card{{this.id}}">
+					<div
+						class={{chooseClass this.dreamTeam}}
+						data-id={{this.id}}
+						data-dt={{this.dreamTeam}}
+						data-json={{this}}
+						data-fname={{this.fname}}
+						data-lname={{this.lname}}
+					>
+						<div class="fullName">
+							{{this.lname}}
+							{{this.fname}}
+						</div>
+						<div class="jersey">{{this.jersey}}</div>
+						<div
+							class="img"
+							id={{this.id}}
+							data-stats="false"
+						></div>
+						<div class="position">{{this.position}}</div>
+						<button class="dreamteam-card-button">{{dreamOptions
+								this.dreamTeam
+							}}</button>
+						<button class="stats-button">Stats</button>
 					</div>
-					<div class="jersey">{{this.jersey}}</div>
-					<div class="img" id={{this.id}} data-stats="false"></div>
-					<div class="position">{{this.position}}</div>
-					<button class="dreamteam-card-button">{{dreamOptions
-							this.dreamTeam
-						}}</button>
-					<button class="stats-button">Stats</button>
 				</div>
 			{{/each}}
 		</script>
@@ -47,36 +75,34 @@
 			<table>
 				<tr>
 					<td>Games played: </td>
-					<td colspan="1">{{this.playersData.gamesPlayed}}</td>
+					<td colspan="1">{{this.gamesPlayed}}</td>
 				</tr>
 				<tr>
 					<td>Minutes PG: </td>
-					<td colspan="1">{{this.playersData.minutesPG}}</td>
+					<td colspan="1">{{this.minutesPG}}</td>
 				</tr>
 				<tr>
 					<td>%Field goals: </td>
-					<td colspan="1">{{this.playersData.fieldGP}}</td>
+					<td colspan="1">{{this.fieldGP}}</td>
 				</tr>
 				<tr>
 					<td>%Threes: </td>
-					<td colspan="1">{{this.playersData.threePP}}</td>
+					<td colspan="1">{{this.threePP}}</td>
 				</tr>
 				<tr>
 					<td>Rebounds PG: </td>
-					<td colspan="1">{{this.playersData.reboundsPG}}</td>
+					<td colspan="1">{{this.reboundsPG}}</td>
 				</tr>
 			</table>
 		</script>
 
 		<script id="imgs-template" type="text/x-handlebars-template">
 			<img
-				src="{{this.playersData.img}}"
+				src="{{this.img}}"
 				onerror="this.src='https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png';"
 				alt="not found"
-			/><div
-				id="stats{{this.playersData.id}}"
-				class="player-stats-hide"
-			>Loading Stats...</div>
+			/><div id="stats{{this.id}}" class="player-stats-hide">Loading
+				Stats...</div>
 		</script>
 	</head>
 	<body>

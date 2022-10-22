@@ -2,14 +2,16 @@ from .api import Api
 
 class PlayerStatsApi(Api):
 
-    def __init__(self):
-        super().__init__("https://nba-players.herokuapp.com/players-stats/")
-        self.raw_data = None
-        self.headers={"Content-Type": "application/json"}
 
-    def get_data(self, lname, fname):
-        self.url = self.url + lname + '/' + fname
-        return super().get_data()
+    def __init__(self, base_url= "https://nba-players.herokuapp.com/"):
+        super().__init__()
+        self.url = base_url
+
+    def make_call(self, method = "GET", resources = "", headers = {"Content-Type": "application/json"}):
+        self.headers = headers
+        self.resources = resources
+        self.method = method
+        return super().make_call()
 
     def proccess_data(self):
         res = {

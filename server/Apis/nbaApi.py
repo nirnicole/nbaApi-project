@@ -10,18 +10,21 @@ class NbaApi(Api):
         "pelicans": "1610612740"
     }
 
-    def __init__(self, year=2018, team_name=None, isActive = False):
-        super().__init__("http://data.nba.net/10s/prod/v1/"+f"{year}/players.json")
-        self.year = year
-        self.team_name = team_name
-        self.isActive = isActive
-        self.raw_data = None
-        self.headers={"Content-Type": "application/json"}
+    def __init__(self, base_url= ""):
+        super().__init__()
+        self.url = base_url
+
+    def make_call(self, method = "GET", resources = "", headers = {"Content-Type": "application/json"}):
+        self.headers = headers
+        self.resources = resources
+        self.method = method
+        return super().make_call()
 
 
-    def proccess_data(self):
+    def proccess_data(self, team_name, isActive=False):
+        EXTERNAL_IMG_API_BASE_URL = "https://nba-players.herokuapp.com/"
         leagues = self.raw_data["league"]
-        team_id = self.teams_id[self.team_name]
+        team_id = self.teams_id[team_name]
         results = []
         for league in leagues:
             results += [{
@@ -31,8 +34,8 @@ class NbaApi(Api):
                 "jersey":player["jersey"],
                 "position":player["pos"],
                 "isActive":player["isActive"],
-                "img": NbaImgApi(player["lastName"], player["firstName"]).url,
+                "img": NbaImgApi(EXTERNAL_IMG_API_BASE_URL).url + "players/"+player["lastName"]+"/"+player["firstName"],
                 "dreamTeam": False
-               } for player in leagues[league] if (self.isActive and bool(player["isActive"]) or not self.isActive ) and player["teamId"] == team_id]
+               } for player in leagues[league] if (isActive and bool(player["isActive"]) or not isActive ) and player["teamId"] == team_id]
         self.proccessed_data = results
         return results

@@ -1,10 +1,5 @@
 class DreamTeamApi extends Api {
-	constructor(
-		year = "2018",
-		team = "lakers",
-		active = false,
-		apiInterface = new AjaxCall()
-	) {
+	constructor(apiInterface = new AjaxCall()) {
 		super(apiInterface, `http://localhost:8000/dreamTeam/`)
 	}
 

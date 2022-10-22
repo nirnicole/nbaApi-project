@@ -1,14 +1,17 @@
 from .api import Api
 
 class NbaImgApi(Api):
+    def __init__(self, base_url= "https://nba-players.herokuapp.com/"):
+        super().__init__()
+        self.url = base_url
 
-    def __init__(self, last_name, first_name):
-        super().__init__("https://nba-players.herokuapp.com/"+f"players/{last_name}/{first_name}")
-        self.last_name = last_name
-        self.first_name = first_name
-        self.raw_data = None
-        self.headers={"Content-Type": "image/png"}
+    def make_call(self, method = "GET", resources = "", headers = {"Content-Type": "application/json"}):
+        self.headers = headers
+        self.resources = resources  #f"players/{last_name}/{first_name}"
+        self.method = method
+        return super().make_call()
 
+    
     def proccess_data(self):
         return self.url
 
