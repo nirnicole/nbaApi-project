@@ -10,7 +10,7 @@ class NbaApi(Api):
         "pelicans": "1610612740"
     }
 
-    def __init__(self, base_url= ""):
+    def __init__(self, base_url= "http://data.nba.net/"):
         super().__init__()
         self.url = base_url
 
