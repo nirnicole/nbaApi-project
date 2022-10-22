@@ -1,5 +1,3 @@
-from typing import Union
-from urllib.request import Request
 from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from Apis.nbaApi import NbaApi
